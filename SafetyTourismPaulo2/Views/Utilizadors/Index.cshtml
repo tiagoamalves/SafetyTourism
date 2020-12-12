@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SafetyTourismPaulo.Models.Utilizador>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeUtilizador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoradaUtilizador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MailUtilizador)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeUtilizador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoradaUtilizador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MailUtilizador)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UtilizadorID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UtilizadorID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UtilizadorID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
