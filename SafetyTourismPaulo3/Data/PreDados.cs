@@ -12,11 +12,11 @@ namespace SafetyTourism.Data
         {
             //context.Database.EnsureCreated();
 
-            /* Look for any students.
+            //Look for any Doencas.
             if (context.Doencas.Any())
             {
                 return;   // DB has been seeded
-            }*/
+            }
 
             var doencas = new Doenca[]
             {
