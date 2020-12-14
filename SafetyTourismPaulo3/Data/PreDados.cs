@@ -10,15 +10,29 @@ namespace SafetyTourism.Data
     {
         public static void Initialize(SafetyTourismdb context)
         {
-            //context.Database.EnsureCreated();
-
-            //Look for any Doencas.
-            if (context.Doencas.Any())
+            // context.Database.EnsureCreated();
+            // Look for any Funcionarios.
+            if (context.Funcionarios.Any())
             {
                 return;   // DB has been seeded
             }
-          
-                var doencas = new Doenca[]
+
+            var funcionarios = new Funcionario[]
+            {
+                new Funcionario { NomeFuncionario = "Leandro", MailFuncionario="leandro@st.pt" },
+                new Funcionario { NomeFuncionario = "Paulo", MailFuncionario="paulo@st.pt" },
+                new Funcionario { NomeFuncionario = "Pedro", MailFuncionario="pedro@st.pt" },
+                new Funcionario { NomeFuncionario = "Tiago", MailFuncionario="tiago@st.pt" },
+                new Funcionario { NomeFuncionario = "Victor", MailFuncionario="victor@st.pt" },
+            };
+            foreach (Funcionario i in funcionarios)
+            {
+                context.Funcionarios.AddRange(funcionarios);
+            }
+            context.SaveChanges();
+
+
+            var doencas = new Doenca[]
             {
                 new Doenca { NomeDoenca = "Malaria", },
                 new Doenca { NomeDoenca = "Tuberculose", },
@@ -41,22 +55,21 @@ namespace SafetyTourism.Data
             }
             context.SaveChanges();
 
-
-            var funcionarios = new Funcionario[]
+            
+            /*var grupoRiscos = new GrupoRisco[]
             {
-                new Funcionario { NomeFuncionario = "Leandro", MailFuncionario="leandro@st.pt" },
-                new Funcionario { NomeFuncionario = "Paulo", MailFuncionario="paulo@st.pt" },
-                new Funcionario { NomeFuncionario = "Pedro", MailFuncionario="pedro@st.pt" },
-                new Funcionario { NomeFuncionario = "Tiago", MailFuncionario="tiago@st.pt" },
-                new Funcionario { NomeFuncionario = "Victor", MailFuncionario="victor@st.pt" },
+                new GrupoRisco { FaixaEtaria = "<18",},
+                new GrupoRisco { FaixaEtaria = "18 - 35",},
+                new GrupoRisco { FaixaEtaria = "35 - 50",},
+                new GrupoRisco { FaixaEtaria = "50 - 65",},
+                new GrupoRisco { FaixaEtaria = ">65",},
             };
-            foreach (Funcionario i in funcionarios)
+            foreach (GrupoRisco i in grupoRiscos)
             {
-                context.Funcionarios.AddRange(funcionarios);
+                context.GrupoRiscos.AddRange(grupoRiscos);
             }
             context.SaveChanges();
-
-
+            */
         }
     }
 }
