@@ -2,8 +2,15 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
+    display: flex;
+    white-space: normal;
+    background-color: azure;
+    text-align: center;
+}
+
+a.nav-link{
+    display: flex;
+    text-align: center;
 }
 
 /* Provide sufficient contrast against white background */
