@@ -19,10 +19,12 @@ namespace SafetyTourism.Models
         public string Sexo { get; set; }
 
         public string Etnia { get; set; }
-        public int DoencaID { get; set; }
 
         [Required]
         [Display(Name = "Doença")]
+        public int DoencaID { get; set; }
+
+     
         public Doenca Doenca { get; set; }
         public ICollection<SurtosEpidemiologico> SurtosEpidemiologicos { get; set; }
 
