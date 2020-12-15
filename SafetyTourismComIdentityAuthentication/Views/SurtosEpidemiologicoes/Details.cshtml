@@ -1,0 +1,60 @@
+﻿@model SafetyTourism.Models.SurtosEpidemiologico
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Surto Epidemiológico</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeSurto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NomeSurto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GrauContagio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GrauContagio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IndiceMortalidade)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IndiceMortalidade)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sintoma)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sintoma.SintomaID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GrupoRisco)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GrupoRisco.GrupoRiscoID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Recomendacoe)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Recomendacoe.RecomendacoeID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GravidadeSurto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GravidadeSurto.GravidadeSurtoID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SurtosEpidemiologicoID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
