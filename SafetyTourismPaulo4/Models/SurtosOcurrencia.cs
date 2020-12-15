@@ -20,11 +20,12 @@ namespace SafetyTourism.Models
         [Display(Name = "Surto Epidemiológico")]
         public int SurtosEpidemiologicoID { get; set; }
 
-        [Display(Name = "Local")]
         public int DestinoTuristicoID { get; set; }
 
-
+        [Display(Name = "Surto Epidemiológico")]
         public SurtosEpidemiologico SurtosEpidemiologico { get; set; }
+
+        [Display(Name = "Local")]
         public DestinoTuristico DestinoTuristico { get; set; }
     }
 }

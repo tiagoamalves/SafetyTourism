@@ -12,7 +12,7 @@ namespace SafetyTourism.Models
         public int DoencaID { get; set; }
 
         [Required]
-        [Display(Name = "Nome de Doença")]
+        [Display(Name = "Doença")]
         public string NomeDoenca { get; set; }
 
        

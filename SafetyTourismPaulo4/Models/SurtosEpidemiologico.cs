@@ -34,12 +34,17 @@ namespace SafetyTourism.Models
 
         [Display(Name = "Grupos de Risco")]
         public int GrupoRiscoID { get; set; }
-        
 
+        [Display(Name = "Sintomas")]
         public Sintoma Sintoma { get; set; }
+
+        [Display(Name = "Grupos de Risco")]
         public GrupoRisco GrupoRisco { get; set; }
+
+        [Display(Name = "Recomendações")]
         public Recomendacoe Recomendacoe { get; set; }
 
+        [Display(Name = "Gravidade de Surtos")]
         public GravidadeSurto GravidadeSurto { get; set; }
 
         public ICollection<SurtosOcurrencia> SurtosOcurrencias { get; set; }
