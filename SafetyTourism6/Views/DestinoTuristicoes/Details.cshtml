@@ -1,0 +1,130 @@
+﻿@model SafetyTourism.Models.DestinoTuristico
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1></h1>
+
+<div>
+    <h4>DestinoTuristico</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeDestino)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomeDestino)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DensidadeDemografica)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DensidadeDemografica)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pais)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pais)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Continente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Continente)
+        </dd>
+        <dt class="col-sm-2">
+
+        </dt>
+    </dl>
+</div>
+<div>
+    <dl>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Ocurrencias de Surtos Epidemiologicos </th>
+
+                </tr>
+                @foreach (var item in Model.SurtosOcurrencias)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.NomeSurto)
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome Surto</th>
+            <th>Data de inicio</th>
+            <th>
+                GrauContagio
+            </th>
+            <th>
+                IndiceMortalidade
+            </th>
+            <th>
+                Gravidade de Surto
+            </th>
+            <th>
+                GrupoRisco
+            </th>
+            <th>
+                Recomendações
+            </th>
+            <th>
+                Sintomas
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SurtosOcurrencias)
+        {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.NomeSurto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.GrauContagio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.IndiceMortalidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.GravidadeSurto.NivelGravidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.GrupoRisco.FaixaEtaria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.Recomendacoe.DataRegisto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.Sintoma.NomeSintoma)
+            </td>
+        </tr>
+        }
+       
+
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DestinoTuristicoID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
