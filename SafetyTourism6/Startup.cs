@@ -26,6 +26,7 @@ namespace SafetyTourism
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddDbContext<SafetyTourismdb>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -53,6 +54,7 @@ namespace SafetyTourism
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -60,6 +62,7 @@ namespace SafetyTourism
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
