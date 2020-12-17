@@ -1,0 +1,52 @@
+﻿@model SafetyTourism.Models.DestinoTuristico
+
+@{
+    ViewData["Title"] = "ViewReport";
+}
+
+<h1>Relatório</h1>
+
+<h4>Recomendações OMS</h4>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Recomendações
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.SurtosOcurrencias)
+        {
+            <tr>
+
+                <td>
+                    if (Model.DestinoTuristicoID == id ){
+        
+                    
+                    
+                        <a> @Html.DisplayFor(model => model.DestinoTuristicoID) </a>
+
+
+                        <a>@Html.DisplayFor(modelItem => item.SurtosEpidemiologico.Recomendacoe.DataRegisto)</a>
+                    }
+                </td>
+
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Details">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

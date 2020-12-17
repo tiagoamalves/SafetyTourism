@@ -112,7 +112,8 @@
                 @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.GrupoRisco.FaixaEtaria)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.Recomendacoe.DataRegisto)
+                <a class="buttonz" asp-action="ViewReport" asp-route-id="@Model.DestinoTuristicoID">@Html.DisplayFor(modelItem => item.SurtosEpidemiologico.Recomendacoe.DataRegisto)</a>
+              
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.Sintoma.NomeSintoma)

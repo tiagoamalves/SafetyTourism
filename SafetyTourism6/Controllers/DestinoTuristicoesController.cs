@@ -37,8 +37,41 @@ namespace SafetyTourism.Controllers
             return View(await destinoTuristico.ToListAsync());
         }
 
-        // GET: DestinoTuristicoes/Details/5
+        //cc GET: DestinoTuristicoes/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var destinoTuristico = await _context.DestinoTuristicos
+                  .Include(s => s.SurtosOcurrencias)
+                     .ThenInclude(o => o.SurtosEpidemiologico)
+                     .ThenInclude(p => p.GravidadeSurto)
+                  .Include(q => q.SurtosOcurrencias)
+                      .ThenInclude(s => s.SurtosEpidemiologico)
+                      .ThenInclude(t => t.GrupoRisco)
+                  .Include(k => k.SurtosOcurrencias)
+                      .ThenInclude(y => y.SurtosEpidemiologico)
+                      .ThenInclude(z => z.Recomendacoe)
+                  .Include(s => s.SurtosOcurrencias)
+                      .ThenInclude(s => s.SurtosEpidemiologico)
+                      .ThenInclude(e => e.Sintoma)
+
+
+
+                  .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.DestinoTuristicoID == id);
+            if (destinoTuristico == null)
+            {
+                return NotFound();
+            }
+
+            return View(destinoTuristico);
+
+        }
+        public async Task<IActionResult> ViewReport(int? id)
         {
             if (id == null)
             {
@@ -54,10 +87,11 @@ namespace SafetyTourism.Controllers
                     .ThenInclude(e => e.GrupoRisco)
                     .Include(s => s.SurtosOcurrencias)
                      .ThenInclude(s => s.SurtosEpidemiologico)
-                    .ThenInclude(e => e.Recomendacoe)
+                     .ThenInclude(e => e.Recomendacoe)
                     .Include(s => s.SurtosOcurrencias)
                      .ThenInclude(s => s.SurtosEpidemiologico)
                     .ThenInclude(e => e.Sintoma)
+                   
 
 
 
@@ -69,6 +103,7 @@ namespace SafetyTourism.Controllers
             }
 
             return View(destinoTuristico);
+
         }
 
         // GET: DestinoTuristicoes/Create
