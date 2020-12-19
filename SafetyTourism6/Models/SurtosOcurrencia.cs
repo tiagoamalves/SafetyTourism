@@ -11,16 +11,21 @@ namespace SafetyTourism.Models
     {
         public int SurtosOcurrenciaID { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Start Date")]
+        [Display(Name = "Data de Início")]
         public DateTime DataInicio { get; set; }
+
+        [Display(Name = "Relatório")]
         public string Relatorio { get; set; }
 
+        [Display(Name = "Surto Epidemiológico")]
         public int SurtosEpidemiologicoID { get; set; }
 
         public int DestinoTuristicoID { get; set; }
+
+        [Display(Name = "Surto Epidemiológico")]
         public SurtosEpidemiologico SurtosEpidemiologico { get; set; }
+
+        [Display(Name = "Local")]
         public DestinoTuristico DestinoTuristico { get; set; }
     }
 }
