@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SafetyTourism.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace SafetyTourism
 {
@@ -33,7 +34,15 @@ namespace SafetyTourism
             services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-
+            //services.AddIdentity<IdentityUser, IdentityRole>();
+            //services.AddTransient<UserManager<IdentityUser>>();
+            //services.AddTransient<SignInManager<IdentityUser>>();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("Admin"));
+                options.AddPolicy("OperatorPolicy", policy => policy.RequireClaim("Operator"));
+                options.AddPolicy("UserPolicy", policy => policy.RequireClaim("User"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

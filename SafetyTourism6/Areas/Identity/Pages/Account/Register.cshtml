@@ -27,6 +27,15 @@
         <input asp-for="Input.Morada" class="form-control" />
         <span asp-validation-for="Input.Morada" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="Input.Claim"></label>
+        <span asp-validation-for="Input.Claim" class="text-danger"></span>
+        <select asp-for="Input.Claim" class="form-control">
+            <option value="User">User</option>
+            <option value="Operator">Operator</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -45,7 +54,7 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
 </form>
 
 
