@@ -12,6 +12,7 @@ namespace SafetyTourism.Models
         public int SintomaID { get; set; }
 
         [Display(Name = "Data de Registo")]
+        [DataType(DataType.Date)]
         public DateTime DataRegisto { get; set; }
 
         [Required]

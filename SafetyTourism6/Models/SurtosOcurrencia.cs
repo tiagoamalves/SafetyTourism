@@ -12,6 +12,7 @@ namespace SafetyTourism.Models
         public int SurtosOcurrenciaID { get; set; }
 
         [Display(Name = "Data de Início")]
+        [DataType(DataType.Date)]
         public DateTime DataInicio { get; set; }
 
         [Display(Name = "Relatório")]

@@ -12,6 +12,7 @@ namespace SafetyTourism.Models
         public int RecomendacoeID { get; set; }
 
         [Display(Name = "Data de Registo")]
+        [DataType(DataType.Date)]
         public DateTime DataRegisto { get; set; }
 
         [Display(Name = "Relatório")]
