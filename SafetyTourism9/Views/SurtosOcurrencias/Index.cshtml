@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SafetyTourism.Models.SurtosOcurrencia>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+<p>
+    <a class=" buttonz" asp-action="Create">Criar novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicio)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.SurtosEpidemiologico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DestinoTuristico)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurtosEpidemiologico.NomeSurto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DestinoTuristico.NomeDestino)
+            </td>
+            <td>
+                <a class = "buttonz" asp-action="Edit" asp-route-id="@item.SurtosOcurrenciaID">Editar</a> 
+                <a class = "buttonz" asp-action="Details" asp-route-id="@item.SurtosOcurrenciaID">Detalhes</a> 
+                <a class = "buttonz" asp-action="Delete" asp-route-id="@item.SurtosOcurrenciaID">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

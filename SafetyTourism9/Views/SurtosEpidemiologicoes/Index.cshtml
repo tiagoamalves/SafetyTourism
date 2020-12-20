@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SafetyTourism.Models.SurtosEpidemiologico>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<p>
+    <a class=" buttonz" asp-action="Create">Criar novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a>Surto</a>
+            </th>
+            <th>
+                <a>Grau de contágio</a>
+            </th>
+            <th>
+                <a>I.Mortalidade</a>
+            </th>
+            <th>
+                <a>Sintomas</a>
+            </th>
+            <th>
+                <a>Grupos de risco</a>
+            </th>
+            <th>
+                <a>Recomendações OMS</a>
+            </th>
+            <th>
+                <a>Gravidade do surto</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSurto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrauContagio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndiceMortalidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sintoma.NomeSintoma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrupoRisco.FaixaEtaria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recomendacoe.DescricaoBreve)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GravidadeSurto.NivelGravidade)
+            </td>
+            <td>
+                <a class = "buttonz" asp-action="Edit" asp-route-id="@item.SurtosEpidemiologicoID">Editar</a>
+                <a class = "buttonz" asp-action="Details" asp-route-id="@item.SurtosEpidemiologicoID">Detalhes</a>
+                <a class = "buttonz" asp-action="Delete" asp-route-id="@item.SurtosEpidemiologicoID">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
