@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SafetyTourism.Models.Doenca>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeDoenca)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeDoenca)
+            </td>
+            <td>
+                <a class = "buttonz" asp-action="Edit" asp-route-id="@item.DoencaID">Editar</a> |
+                <a class = "buttonz" asp-action="Details" asp-route-id="@item.DoencaID">Detalhes</a> |
+                <a class = "buttonz" asp-action="Delete" asp-route-id="@item.DoencaID">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
