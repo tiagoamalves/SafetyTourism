@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using SafetyTourism.Models;
 
 namespace SafetyTourism.Controllers
 {
+    [Authorize(Policy = "ElevatedRights")]
     public class DoencasController : Controller
     {
         private readonly SafetyTourismdb _context;
@@ -20,12 +22,14 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: Doencas
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Doencas.ToListAsync());
         }
 
         // GET: Doencas/Details/5
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: Doencas/Create
+        [Authorize(Policy = "ElevatedRights")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +59,7 @@ namespace SafetyTourism.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Create([Bind("DoencaID,NomeDoenca")] Doenca doenca)
         {
             if (ModelState.IsValid)
@@ -66,6 +72,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: Doencas/Edit/5
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +93,7 @@ namespace SafetyTourism.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Edit(int id, [Bind("DoencaID,NomeDoenca")] Doenca doenca)
         {
             if (id != doenca.DoencaID)
@@ -117,6 +125,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: Doencas/Delete/5
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace SafetyTourism.Controllers
         // POST: Doencas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var doenca = await _context.Doencas.FindAsync(id);

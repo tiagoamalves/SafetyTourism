@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using SafetyTourism.Models;
 
 namespace SafetyTourism.Controllers
 {
+    [Authorize(Policy = "UserOperatorPolicy")]
     public class DestinoTuristicoesController : Controller
     {
         private readonly SafetyTourismdb _context;
@@ -19,6 +21,7 @@ namespace SafetyTourism.Controllers
             _context = context;
         }
 
+        [Authorize(Policy= "UserOperatorPolicy")]
         // GET: DestinoTuristicoes
         public async Task<IActionResult> Index(string searchString)
         {
@@ -35,6 +38,7 @@ namespace SafetyTourism.Controllers
         }
 
         //cc GET: DestinoTuristicoes/Details/5
+        [Authorize(Policy = "UserOperatorPolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -104,6 +108,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: DestinoTuristicoes/Create
+        [Authorize(Policy = "ElevatedRights")]
         public IActionResult Create()
         {
             return View();
@@ -114,6 +119,7 @@ namespace SafetyTourism.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Create([Bind("DestinoTuristicoID,NomeDestino,DensidadeDemografica,Pais,Continente")] DestinoTuristico destinoTuristico)
         {
             if (ModelState.IsValid)
@@ -126,6 +132,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: DestinoTuristicoes/Edit/5
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -146,6 +153,7 @@ namespace SafetyTourism.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Edit(int id, [Bind("DestinoTuristicoID,NomeDestino,DensidadeDemografica,Pais,Continente")] DestinoTuristico destinoTuristico)
         {
             if (id != destinoTuristico.DestinoTuristicoID)
@@ -177,6 +185,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: DestinoTuristicoes/Delete/5
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -197,6 +206,7 @@ namespace SafetyTourism.Controllers
         // POST: DestinoTuristicoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "ElevatedRights")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var destinoTuristico = await _context.DestinoTuristicos.FindAsync(id);

@@ -1,22 +1,41 @@
 ﻿@model IEnumerable<SafetyTourism.Models.DestinoTuristico>
+@using Microsoft.AspNetCore.Identity
+@using SafetyTourism.Areas.Identity.Data
+@inject SignInManager<SafetyTourismUser> SignInManager
+@inject UserManager<SafetyTourismUser> UserManager
+@{
+    var isLoggedIn = SignInManager.IsSignedIn(User);
+    bool isOperator = false;
+    bool isAdmin = false;
+    bool isUser = false;
+    if (isLoggedIn)
+    {
+        isOperator = User.HasClaim(c => c.Type == "Operator");
 
+        isAdmin = User.HasClaim(a => a.Type == "Admin");
+
+        isUser = User.HasClaim(u => u.Type == "User");
+    }
+}
 @{
     ViewData["Title"] = "Index";
 }
 
 
-
-<p>
-    <a class=" buttonz" asp-action="Create">Criar novo</a>
-</p>
-
+@{if (isOperator || isAdmin)
+    {
+        <p>
+            <a class=" buttonz" asp-action="Create">Criar novo</a>
+        </p>
+    }
+}
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Procurar por nome: <input type="text" name="SearchString" classes="btn btn-default"  value="@ViewData["CurrentFilter"]" />
-            
+            Procurar por nome: <input type="text" name="SearchString" classes="btn btn-default" value="@ViewData["CurrentFilter"]" />
+
             <input type="submit" value="Search" class="btn btn-default" />
-            <a class = "buttonz" asp-action="Index">Voltar para a lista completa</a>
+            <a class="buttonz" asp-action="Index">Voltar para a lista completa</a>
         </p>
     </div>
 </form>
@@ -55,12 +74,25 @@
                     @Html.DisplayFor(modelItem => item.Continente)
                 </td>
                 <td>
-                    <a class="buttonz" asp-action="Edit" asp-route-id="@item.DestinoTuristicoID">Editar</a> 
-                    <a class="buttonz" asp-action="Details" asp-route-id="@item.DestinoTuristicoID">Surto Epidemiologico</a> 
-                    <a class="buttonz" asp-action="Apagar" asp-route-id="@item.DestinoTuristicoID">Apagar</a>
-                </td>
+                    @{if (isOperator || isAdmin)
+                        {
+                            <a class="buttonz" asp-action="Edit" asp-route-id="@item.DestinoTuristicoID">Editar</a>
+                        }
+                        if (isOperator || isAdmin || isUser)
+                        {
+                            <a class="buttonz" asp-action="Details" asp-route-id="@item.DestinoTuristicoID">Surto Epidemiologico</a>
+                        }
+                        if (isOperator || isAdmin)
+                        {
+                            <a class="buttonz" asp-action="Delete" asp-route-id="@item.DestinoTuristicoID">Apagar</a>
+                        }
+                    }
+                    </td>
 
             </tr>
+
         }
+
     </tbody>
 </table>
+

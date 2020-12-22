@@ -3,6 +3,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "SafetyTourismContextConnection"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "SafetyTourism12ContextConnection"
     }
   }
 }

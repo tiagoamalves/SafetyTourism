@@ -1,5 +1,21 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@using Microsoft.AspNetCore.Identity
+@using SafetyTourism.Areas.Identity.Data
+@inject SignInManager<SafetyTourismUser> SignInManager
+@inject UserManager<SafetyTourismUser> UserManager
+@{
+    var isLoggedIn = SignInManager.IsSignedIn(User);
+    bool isOperator = false;
+    bool isAdmin = false;
+    bool isUser = false;
+    if (isLoggedIn)
+    {
+        isOperator = User.HasClaim(c => c.Type == "Operator");
+        isAdmin = User.HasClaim(a => a.Type == "Admin");
+        isUser = User.HasClaim(u => u.Type == "User");
+    }
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,44 +38,49 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <!--<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="DestinoTuristicoes" asp-action="Index">Destinos Turísticos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SurtosEpidemiologicoes" asp-action="Index">Surtos Epidemiológicos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SurtosOcurrencias" asp-action="Index">Ocorrências de Surtos</a>
-                        </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionários</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Utilizadors" asp-action="Index">Utilizadores</a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sintomas" asp-action="Index">Sintomas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Doencas" asp-action="Index">Doenças</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Recomendacoes" asp-action="Index">Recomendações OMS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="GrupoRiscoes" asp-action="Index">Grupos de Risco</a>
-                        </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Recomendacoes" asp-action="Index">Recomendações OMS</a>
-                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="GravidadeSurtoes" asp-action="Index">Gravidade de Surtos</a>
-                        </li>
+                        @{
+                            if (isLoggedIn)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="DestinoTuristicoes" asp-action="Index">Destinos Turísticos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="SurtosEpidemiologicoes" asp-action="Index">Surtos Epidemiológicos</a>
+                                </li>
+                                if (isOperator || isAdmin)
+                                {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="SurtosOcurrencias" asp-action="Index">Ocorrências de Surtos</a>
+                                </li>
+                                <!--<li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Funcionarios" asp-action="Index">Funcionários</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Utilizadors" asp-action="Index">Utilizadores</a>
+                </li> -->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Sintomas" asp-action="Index">Sintomas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Doencas" asp-action="Index">Doenças</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Recomendacoes" asp-action="Index">Recomendações OMS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="GrupoRiscoes" asp-action="Index">Grupos de Risco</a>
+                                </li>
+                                <!--<li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Recomendacoes" asp-action="Index">Recomendações OMS</a>
+                </li>-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="GravidadeSurtoes" asp-action="Index">Gravidade de Surtos</a>
+                                </li>
+                                }
+                            }
+                        }
                     </ul>
-                    
+                    <partial name="_LoginPartial.cshtml" />
                 </div>
             </div>
         </nav>
