@@ -1,14 +1,33 @@
 ﻿@model IEnumerable<SafetyTourism.Models.SurtosEpidemiologico>
+@using Microsoft.AspNetCore.Identity
+@using SafetyTourism.Areas.Identity.Data
+@inject SignInManager<SafetyTourismUser> SignInManager
+@inject UserManager<SafetyTourismUser> UserManager
+@{
+    var isLoggedIn = SignInManager.IsSignedIn(User);
+    bool isOperator = false;
+    bool isAdmin = false;
+    bool isUser = false;
+    if (isLoggedIn)
+    {
+        isOperator = User.HasClaim(c => c.Type == "Operator");
 
+        isAdmin = User.HasClaim(a => a.Type == "Admin");
+
+        isUser = User.HasClaim(u => u.Type == "User");
+    }
+}
 @{
     ViewData["Title"] = "Index";
 }
-
-
-
-<p>
-    <a class=" buttonz" asp-action="Create">Criar novo</a>
-</p>
+@{
+    if (isOperator || isAdmin)
+    {
+        <p>
+            <a class=" buttonz" asp-action="Create">Criar novo</a>
+        </p>
+    }
+}
 <table class="table">
     <thead>
         <tr>
@@ -37,7 +56,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeSurto)
@@ -60,12 +80,26 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GravidadeSurto.NivelGravidade)
             </td>
+
             <td>
-                <a class = "buttonz" asp-action="Edit" asp-route-id="@item.SurtosEpidemiologicoID">Editar</a>
-                <a class = "buttonz" asp-action="Details" asp-route-id="@item.SurtosEpidemiologicoID">Detalhes</a>
-                <a class = "buttonz" asp-action="Delete" asp-route-id="@item.SurtosEpidemiologicoID">Apagar</a>
+            @{
+                if (isOperator || isAdmin)
+                {
+
+                    <a class="buttonz" asp-action="Edit" asp-route-id="@item.SurtosEpidemiologicoID">Editar</a>
+                    <a class="buttonz" asp-action="Details" asp-route-id="@item.SurtosEpidemiologicoID">Detalhes</a>
+                    <a class="buttonz" asp-action="Delete" asp-route-id="@item.SurtosEpidemiologicoID">Apagar</a>
+
+                }
+                if (isUser)
+                {
+
+                    <a class="buttonz" asp-action="Details" asp-route-id="@item.SurtosEpidemiologicoID">Detalhes</a>
+                }
+
+            }
             </td>
         </tr>
-}
+     }
     </tbody>
 </table>

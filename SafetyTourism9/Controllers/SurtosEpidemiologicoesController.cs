@@ -11,7 +11,7 @@ using SafetyTourism.Models;
 
 namespace SafetyTourism.Controllers
 {
-    [Authorize(Policy = "OperatorPolicy")]
+    [Authorize(Policy = "UserOperatorPolicy")]
     public class SurtosEpidemiologicoesController : Controller
     {
         private readonly SafetyTourismdb _context;
@@ -22,7 +22,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: SurtosEpidemiologicoes
-        [Authorize(Policy = "OperatorPolicy")]
+        [Authorize(Policy = "UserOperatorPolicy")]
         public async Task<IActionResult> Index()
         {
             var safetyTourismdb = _context.SurtosEpidemiologicos.Include(s => s.GravidadeSurto).Include(s => s.GrupoRisco).Include(s => s.Recomendacoe).Include(s => s.Sintoma);
@@ -30,7 +30,7 @@ namespace SafetyTourism.Controllers
         }
 
         // GET: SurtosEpidemiologicoes/Details/5
-        [Authorize(Policy = "OperatorPolicy")]
+        [Authorize(Policy = "UserOperatorPolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
