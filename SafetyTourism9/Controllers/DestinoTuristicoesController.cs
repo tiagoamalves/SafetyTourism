@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using Abp.Authorization.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json;
 using SafetyTourism.Data;
 using SafetyTourism.Models;
 
@@ -16,25 +23,48 @@ namespace SafetyTourism.Controllers
     {
         private readonly SafetyTourismdb _context;
         public bool a = true;
-        public DestinoTuristicoesController(SafetyTourismdb context)
+        private readonly IConfiguration _configure;
+        private readonly string apiBaseUrl;
+        public DestinoTuristicoesController(IConfiguration configuration)
+        {
+            _configure = configuration;
+            apiBaseUrl = _configure.GetValue<string>("WebAPIBaseUrl");
+        }
+        // Construtor do controller
+        /*public DestinoTuristicoesController(SafetyTourismdb context)
         {
             _context = context;
-        }
+        }*/
 
         [Authorize(Policy= "UserOperatorPolicy")]
         // GET: DestinoTuristicoes
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
+            var listadestinosTuristicoes = new List<DestinoTuristico>();
+            using (HttpClient client = new HttpClient())
+            {
+                UserInfo user = new UserInfo();
+                StringContent contentUser = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                var responseLogin = await client.PostAsync(apiBaseUrl + "/users/login", contentUser);
+                UserToken token = await responseLogin.Content.ReadAsAsync<UserToken>();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
+                string endpoint = apiBaseUrl + "/Zonas";
+                var response = await client.GetAsync(endpoint);
+                response.EnsureSuccessStatusCode();
+                listadestinosTuristicoes = await response.Content.ReadAsAsync<List<DestinoTuristico>>();
+            }
+            return View(listadestinosTuristicoes);
+
+            /*ViewData["CurrentFilter"] = searchString;
 
             var destinoTuristico = from s in _context.DestinoTuristicos select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 destinoTuristico = destinoTuristico.Where(s => s.NomeDestino.Contains(searchString));                                
-            }
-            
-        return View(await destinoTuristico.ToListAsync());
+            }*/
+
         }
 
         //cc GET: DestinoTuristicoes/Details/5
@@ -45,7 +75,6 @@ namespace SafetyTourism.Controllers
             {
                 return NotFound();
             }
-
             var destinoTuristico = await _context.DestinoTuristicos
                   .Include(s => s.SurtosOcurrencias)
                      .ThenInclude(o => o.SurtosEpidemiologico)
@@ -60,10 +89,10 @@ namespace SafetyTourism.Controllers
                       .ThenInclude(s => s.SurtosEpidemiologico)
                       .ThenInclude(e => e.Sintoma)
 
-
-
                   .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.DestinoTuristicoID == id);
+
+
             if (destinoTuristico == null)
             {
                 return NotFound();
